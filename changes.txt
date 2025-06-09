@@ -31,7 +31,7 @@ UPDATE boundary_sets set description = 'Pre interim boundary change boundary set
 
 /* Add margin left to nested ol ol */
 
-/* Add the new columns to the boundary set model */
+/* Add the new columns to the boundary set model comments */
 
 /* Add a child boundary sets attribute accessor to the boundary set model */
 
@@ -39,11 +39,13 @@ UPDATE boundary_sets set description = 'Pre interim boundary change boundary set
 
 /* Rewrite boundary set controller index method to construct an array of parent boundary sets, with an array of children for HTML only. */
 
+/* Add a display_title_with_description method to the boundary set model. */
+
 /* Rewrite views boundary_set index HTML to use parent boundary set array. */
 
 /* Rewrite views boundary_set boundary_set HTML to also render description where present and child boundary sets. */
 
-/* Update index templates to pass the boundary set for:
+/* Update index templates to pass the boundary set to the nav for:
 - boundary_set_constituency_area
 - boundary_set_legislation_item
 - boundary_set_general_election
@@ -62,6 +64,12 @@ UPDATE boundary_sets set description = 'Pre interim boundary change boundary set
 /* Add parent_boundary_set to the boundary set model. */
 
 /* Add boundary set intro partial. */
+
+/* Add nested_boundary_set partial. */
+
+/* Update boundary set partial to use title with description. */
+
+/* Update boundary set index template to use nested partial. */
 
 /* Call boundary set intro partial from boundary set constituency area index template. */
 
