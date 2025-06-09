@@ -1,0 +1,16 @@
+<div id="candidacies">
+	<%= content_tag( 'h2', 'Candidates' ) %>
+	<div class="table-wrapper">
+		<table>
+			<thead>
+				<tr>
+					<%= content_tag( 'th', 'Party' ) %>
+					<%= content_tag( 'th', 'Vote', :class => 'number' ) %>
+					<%= content_tag( 'th', 'Vote share', :class => 'number' ) %>
+			</thead>
+			<tbody>
+				<%= render :partial => 'notional_result', :collection => notional_result_candidacies %>
+			</tbody>
+		</table>
+	</div>
+</div>

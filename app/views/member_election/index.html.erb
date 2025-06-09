@@ -1,0 +1,24 @@
+<%= render :partial => 'nav' %>
+
+<%= content_tag( 'p', link_to( "Parliament Member page for #{@member.display_name}", "https://members.parliament.uk/member/#{@member.mnis_id}" ) ) %>
+
+<%= content_tag( 'p', "Elections listed as contested and won are those forming part of the general elections in #{output_election_years} and any by-election contested during the 57th and 58th Parliaments. A person may have contested an election outside this grouping." ) %>
+
+<div class="table-wrapper">
+	<table>
+		<thead>
+			<tr>
+				<%= content_tag( 'td', 'Election' ) %>
+				<%= content_tag( 'td', 'Constituency' ) %>
+				<%= content_tag( 'td', 'Election type' ) %>
+				<%= content_tag( 'td', 'Party' ) %>
+				<%= content_tag( 'td', 'Vote count', :class => 'number' ) %>
+				<%= content_tag( 'td', 'Vote share', :class => 'number' ) %>
+				<%= content_tag( 'td', 'Position', :class => 'number' ) %>
+			</tr>
+		</thead>
+		<tbody>
+			<%= render :partial => 'election', :collection => @elections %>
+		</tbody>
+	</table>
+</div>

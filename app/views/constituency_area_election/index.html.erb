@@ -1,0 +1,48 @@
+<%= render :partial => 'constituency_area/intro', :object => @constituency_area %>
+
+<%= render :partial => 'constituency_area/nav' %>
+
+<% if @elections.empty? -%>
+	<%= content_tag( 'p', 'Election history information is not yet available.' ) %>
+<% else -%>
+	<div class="table-wrapper">
+		<table>
+			<thead>
+				<tr>
+					<%= content_tag( 'th', 'Polling date' ) %>
+					<%= content_tag( 'th', 'Election type' ) %>
+					<%= content_tag( 'th', 'Winning party' ) %>
+					<%= content_tag( 'th', 'Winning candidate' ) %>
+					<%= content_tag( 'th', 'Majority', :class => 'number' ) %>
+					<%= content_tag( 'th', 'Winning candidate vote count', :class => 'number' ) %>
+					<%= content_tag( 'th', 'Winning candidate vote share', :class => 'number' ) %>
+					<%= content_tag( 'th', 'Turnout', :class => 'number' ) %>
+					<%= content_tag( 'th', 'Electorate', :class => 'number' ) %>
+					<%= content_tag( 'th', 'Votes cast in election', :class => 'number' ) %>
+				</tr>
+			</thead>
+			<tbody>
+				<%= render :partial => 'election', :collection => @elections %>
+			</tbody>
+		</table>
+	</div>
+<% end -%>
+
+<% unless @overlaps_from.empty? and @overlaps_to.empty? -%>
+	<div id="constituency-area-formation">
+		<%= content_tag( 'h2', 'Constituency area formation' ) %>
+		<% unless @overlaps_from.empty? -%>
+			<%= content_tag( 'p', "#{@constituency_area.name_with_dates} was formed from:" ) %>
+			<ol>
+				<%= render :partial => 'overlap_from', :collection => @overlaps_from %>
+			</ol>
+		<% end -%>
+		<% unless @overlaps_to.empty? -%>
+			<%= content_tag( 'p', "#{@constituency_area.name_with_dates} formed:" ) %>
+			<ol>
+				<%= render :partial => 'overlap_to', :collection => @overlaps_to %>
+			</ol>
+		<% end -%>
+		<%= content_tag( 'p', "Show #{link_to( 'constituency overlap details', constituency_area_overlap_show_url )}.".html_safe ) %>
+	</div>
+<% end -%>

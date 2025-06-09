@@ -1,0 +1,14 @@
+<%= render :partial => 'parliament_period/intro', :object => @parliament_period %>
+
+<% unless @maiden_speeches.empty? -%>
+	<div class="table-wrapper">
+		<table id="maiden-speeches" class="sortable sorted-<%= @order %>">
+		<%= render :partial => 'table_head' %>
+			<tbody>
+				<%= render :partial => 'maiden_speech/parliament_period_maiden_speech', :collection => @maiden_speeches %>
+			</tbody>
+		</table>
+	</div>
+<% else -%>
+	<%= content_tag( 'p', 'Maiden speech information is not yet available.' ) %>
+<% end -%>

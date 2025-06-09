@@ -1,0 +1,42 @@
+<%= render :partial => 'constituency_area/intro', :object => @constituency_area %>
+
+<%= render :partial => 'constituency_area/nav' %>
+
+<% unless @maiden_speeches.empty? -%>
+	<div class="table-wrapper">
+		<table>
+			<thead>
+				<tr>
+					<%= content_tag( 'th', 'Member' ) %>
+					<%= content_tag( 'th', 'Date made' ) %>
+					<%= content_tag( 'th', 'Parliament', :class => 'number' ) %>
+					<%= content_tag( 'th', 'Session', :class => 'number' ) %>
+				</tr>
+			</thead>
+			<tbody>
+				<%= render :partial => 'maiden_speech/constituency_area_maiden_speech', :collection => @maiden_speeches %>
+			</tbody>
+		</table>
+	</div>
+<% else -%>
+	<%= content_tag( 'p', 'No maiden speech information available.' ) %>
+<% end -%>
+
+<% unless @overlaps_from.empty? and @overlaps_to.empty? -%>
+	<div id="constituency-area-formation">
+		<%= content_tag( 'h2', 'Constituency area formation' ) %>
+		<% unless @overlaps_from.empty? -%>
+			<%= content_tag( 'p', "#{@constituency_area.name_with_dates} was formed from:" ) %>
+			<ol>
+				<%= render :partial => 'overlap_from', :collection => @overlaps_from %>
+			</ol>
+		<% end -%>
+		<% unless @overlaps_to.empty? -%>
+			<%= content_tag( 'p', "#{@constituency_area.name_with_dates} formed:" ) %>
+			<ol>
+				<%= render :partial => 'overlap_to', :collection => @overlaps_to %>
+			</ol>
+		<% end -%>
+		<%= content_tag( 'p', "Show #{link_to( 'constituency overlap details', constituency_area_overlap_show_url )}.".html_safe ) %>
+	</div>
+<% end -%>

@@ -1,0 +1,49 @@
+<%= content_tag( 'p', "Legisation.gov.uk URI: #{link_to( @legislation_item.uri, @legislation_item.uri )}".html_safe ) if @legislation_item.uri %>
+
+<%= render :partial => 'statute_book', :object => @legislation_item %>
+
+<% unless @enabling_legislation.empty? -%>
+	<div id="enabling-legislation">
+		<%= content_tag( 'h2', 'Enabling legislation' ) %>
+		<ol>
+			<%= render :partial => 'legislation_item', :collection => @enabling_legislation %>
+		</ol>
+	</div>
+<% end -%>
+
+<% unless @enabled_legislation.empty? -%>
+	<div id="enabled-legislation">
+		<%= content_tag( 'h2', 'Enabled legislation' ) %>
+		<ol>
+			<%= render :partial => 'legislation_item', :collection => @enabled_legislation %>
+		</ol>
+	</div>
+<% end -%>
+
+<% unless @boundary_sets.empty? -%>
+	<div id="boundary-sets">
+		<%= content_tag( 'h2', 'Boundary sets' ) %>
+		<ol>
+			<%= render :partial => 'boundary_set/boundary_set', :collection => @boundary_sets %>
+		</ol>
+	</div>
+<% end -%>
+
+<div id="downloads">
+	<% unless @enabling_legislation.empty? -%>
+		<p>
+			<%= csv_icon_link( legislation_item_enabling_legislation_list_url( :format => 'csv' ), "Download enabling legislation data as a CSV file.") %>
+		</p>
+	<% end -%>
+	<% unless @enabled_legislation.empty? -%>
+		<p>
+			<%= csv_icon_link( legislation_item_enabled_legislation_list_url( :format => 'csv' ), "Download enabled legislation data as a CSV file.") %>
+		</p>
+	<% end -%>
+	<% unless @boundary_sets.empty? -%>
+		<p>
+			<%= csv_icon_link( legislation_item_boundary_set_list_url( :format => 'csv' ), "Download boundary set data as a CSV file.") %>
+		</p>
+	<% end -%>
+</div>
+	

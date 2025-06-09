@@ -1,0 +1,80 @@
+/* We add a parent bounday set ID to the boundary sets table */
+ALTER TABLE boundary_sets ADD column parent_boundary_set_id INT;
+
+/* We make the boundary set parent ID a foreign key to the boundary sets table */
+ALTER TABLE ONLY public.boundary_sets
+	ADD CONSTRAINT fk_parent_boundary_set FOREIGN KEY (parent_boundary_set_id) REFERENCES public.boundary_sets(id);
+
+/* We make the new Milton Keynes boundary set a child of the England boundary set */
+UPDATE boundary_sets set parent_boundary_set_id = 16 where id = 13;
+
+/* We update the end date of the England boundary set */
+UPDATE boundary_sets set end_on = '1997-04-08' where id = 16;
+
+/* We create a new pre-interim boundary set change boundary set */
+INSERT INTO boundary_sets (start_on, end_on, country_id, parent_boundary_set_id) VALUES ('1983-05-14', '1992-03-16', 2, 16);
+
+/* We link the new pre-interim boundary set to its establishing legislation */
+INSERT INTO boundary_set_legislation_items (boundary_set_id, legislation_item_id) VALUES(35, 21);
+
+/* We add a description to the boundary sets table */
+ALTER TABLE boundary_sets ADD column description varchar(255);
+
+/* We add a description to the new Milton Keynes boundary set */
+UPDATE boundary_sets set description = 'Post interim boundary change boundary set' where id = 13;
+
+/* We add a description to the new Milton Keynes boundary set */
+UPDATE boundary_sets set description = 'Pre interim boundary change boundary set' where id = 35;
+
+/* Update schema, boundary sets table to include self-referential parent_boundary_set_id */
+/* Update schema, boundary sets table to include description */
+
+/* Add margin left to nested ol ol */
+
+/* Add the new columns to the boundary set model */
+
+/* Add a child boundary sets attribute accessor to the boundary set model */
+
+/* Add is_child_boundary_set method to the boundary set model. */
+
+/* Rewrite boundary set controller index method to construct an array of parent boundary sets, with an array of children for HTML only. */
+
+/* Rewrite views boundary_set index HTML to use parent boundary set array. */
+
+/* Rewrite views boundary_set boundary_set HTML to also render description where present and child boundary sets. */
+
+/* Update index templates to pass the boundary set for:
+- boundary_set_constituency_area
+- boundary_set_legislation_item
+- boundary_set_general_election
+- boundary_set_by_election
+- boundary_set_general_election_majority
+- boundary_set_general_election_vote_share
+- boundary_set_general_election_turnout
+- boundary_set_general_election_party */
+
+/* Update boundary set nav view to only show aggregate views for parent boundary sets. */
+
+/* Update boundary set model previous_boundary_set method to only work for parent boundary sets and to only include parent boundary sets. */
+
+/* Update boundary set model next_boundary_set method to only work for parent boundary sets and to only include parent boundary sets. */
+
+/* Add parent_boundary_set to the boundary set model. */
+
+/* Add boundary set intro partial. */
+
+/* Call boundary set intro partial from boundary set constituency area index template. */
+
+/* Call boundary set intro partial from boundary set legislation item index template. */
+
+/* Add call to parent boundary set from boundary set show action. */
+
+/* Add call to parent boundary set from boundary set constituency area index action. */
+
+/* Add call to parent boundary set from boundary set constituency area index action. */
+
+/* Add call to parent boundary set from boundary set legislation item index action. */
+
+
+
+

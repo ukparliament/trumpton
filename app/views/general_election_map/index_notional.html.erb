@@ -1,0 +1,28 @@
+<%= render :partial => 'general_election/nav' %>
+
+<%= render :partial => 'general_election/counts', :object => @general_election %>
+
+<div id="iframe-holder"></div>
+<noscript>
+
+  <p>If you choose to enable Javascript in your browser, a map showing constituency wins and gains for this general election will be displayed here. Displaying the map requires Javascript to be enabled.</p>
+
+</noscript>
+<script>
+	var holder = document.getElementById("iframe-holder");
+	var iframe = document.createElement('iframe');
+	iframe.src = '/cartogram/general-elections/<%= @general_election.polling_on %>-notional/uk.html';
+	iframe.loading = 'lazy';
+	iframe.id = 'cartogram';
+	holder.appendChild(iframe);
+</script>
+
+<%= render :partial => 'notional/notice' %>
+
+<% unless @elections.empty? %>
+	<div id="downloads">
+		<p>
+			<%= csv_icon_link(	general_election_candidacy_list_url( :format => 'csv' ), "Download the full data set: candidate-level general election result data as a CSV file." ) %>
+		</p>
+	</div>
+<% end -%>

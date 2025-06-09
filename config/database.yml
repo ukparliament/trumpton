@@ -1,0 +1,18 @@
+development: &development
+  adapter: postgresql
+  encoding: unicode
+  database: trumpton
+  host: localhost
+  pool: 5
+
+test:
+  <<: *development
+  database: psephology_test
+
+production:
+  host: <%= ENV['DB_HOST'] %>
+  port: 5432
+  adapter: postgresql
+  database: <%= ENV['DB_DATABASE'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>

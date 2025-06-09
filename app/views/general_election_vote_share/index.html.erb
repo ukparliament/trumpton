@@ -1,0 +1,32 @@
+<%= render :partial => 'previous_next', :object => @general_election %>
+
+<%= render :partial => 'general_election/nav' %>
+
+<%= render :partial => 'general_election/counts', :object => @general_election %>
+
+<% unless @elections.empty? %>
+	<div class="table-wrapper">
+		<table>
+			<thead>
+				<tr>
+					<%= content_tag( 'td', 'Ranking' ) %>
+					<%= content_tag( 'td', 'Constituency' ) %>
+					<%= content_tag( 'td', 'Winning candidate' ) %>
+					<%= content_tag( 'td', 'Winning party' ) %>
+						<%= content_tag( 'td', 'Vote share', :class => 'number' ) %>
+				</tr>
+			</thead>
+			<tbody>
+				<%= render :partial => 'election', :collection => @elections %>
+			</tbody>
+		</table>
+	</div>
+	<div id="downloads">
+		<p>
+			<%= csv_icon_link(	general_election_vote_share_list_url( :format => 'csv' ), "Download the data shown on this page: vote share data as a CSV file." ) %>
+		</p>
+		<p>
+			<%= csv_icon_link(	general_election_candidacy_list_url( :format => 'csv' ), "Download the full data set: candidate-level general election result data as a CSV file." ) %>
+		</p>
+	</div>
+<% end -%>

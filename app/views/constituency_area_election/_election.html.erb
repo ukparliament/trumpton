@@ -1,0 +1,32 @@
+<tr>
+	<%= content_tag( 'td', link_to( election.polling_on.strftime( $DATE_DISPLAY_FORMAT ), election_show_url( :election => election ) ) ) %>
+	<td>
+		<% if election.general_election_id -%>
+			<%= link_to( 'General election', general_election_show_url( :general_election => election.general_election_id ) ) %>
+		<% else -%>
+			By-election
+		<% end -%>
+	</td>
+	<td class="party<% if election.winning_candidacy_main_party_mnis_id -%> party-<%=election.winning_candidacy_main_party_mnis_id %><% end -%>">
+		<% if election.winning_candidacy_adjunct_party_id -%>
+			<%= link_to( election.winning_candidacy_main_party_abbreviation, political_party_show_url( :political_party => election.winning_candidacy_main_party_id ), :title => election.winning_candidacy_main_party_name ) %>
+			/
+			<%= content_tag( 'span', election.winning_candidacy_adjunct_party_abbreviation, :title => election.winning_candidacy_adjunct_party_name ) %>
+		<% elsif election.winning_candidacy_is_standing_as_commons_speaker == true -%>
+			<%= content_tag( 'abbr', 'Spk', :title => 'Speaker' ) %>
+		<% elsif election.winning_candidacy_is_standing_as_independent == true -%>
+			<%= content_tag( 'abbr', 'Ind', :title => 'Independent' )  %>
+		<% else -%>
+			<%= link_to( election.winning_candidacy_main_party_abbreviation, political_party_show_url( :political_party => election.winning_candidacy_main_party_id ), :title => election.winning_candidacy_main_party_name ) %>
+		<% end -%>
+	</td>
+	<%= content_tag( 'td', link_to( election.candidate_polling_name, member_show_url( :member => election.winning_candidacy_mnis_id ) ) ) %>
+	<%= content_tag( 'td', election.majority.to_s.reverse.gsub(/...(?=.)/,'\&,').reverse, :class => 'number' ) %>
+	<%= content_tag( 'td', election.winning_candidacy_vote_count.to_s.reverse.gsub(/...(?=.)/,'\&,').reverse, :class => 'number' ) %>
+	<%= content_tag( 'td', "#{( election.winning_candidacy_vote_share.to_f * 100 ).round( 1 )}%", :class => 'number' ) %>
+	<%= content_tag( 'td', "#{election.turnout}%", :class => 'number' ) %>
+	
+		
+	<%= content_tag( 'td', election.electorate_population_count.to_s.reverse.gsub(/...(?=.)/,'\&,').reverse, :class => 'number' ) %>
+	<%= content_tag( 'td', election.valid_vote_count.to_s.reverse.gsub(/...(?=.)/,'\&,').reverse, :class => 'number' ) %>
+</tr>

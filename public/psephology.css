@@ -1,0 +1,9 @@
+* {
+	margin: 0;
+}
+header, footer {
+	background-color: #373151;	
+}
+#breadcrumb {
+	background-color: #e9ecef;
+}

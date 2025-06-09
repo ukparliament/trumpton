@@ -1,0 +1,26 @@
+<%= render :partial => 'previous_next', :object => @boundary_set %>
+
+<%= render :partial => 'boundary_set/nav', :object => @boundary_set %>
+
+<% if @elections.empty? -%>
+	<%= content_tag( 'p', 'General election majority information is not yet available.' ) %>
+<% else -%>
+	<div class="table-wrapper">
+		<table id="majorities" class="multibody">
+			<thead>
+				<tr>
+					<%= content_tag( 'th', 'Constituency area' ) %>
+					<%= content_tag( 'th', 'Election type' ) %>
+					<%= content_tag( 'th', 'Polling date' ) %>
+					<%= content_tag( 'th', 'Winning party' ) %>
+					<%= content_tag( 'th', 'Majority', :class => 'number' ) %>
+					<%= content_tag( 'th', 'Valid vote count', :class => 'number' ) %>
+					<%= content_tag( 'th', 'Majority / valid vote count', :class => 'number' ) %>
+				</tr>
+			</thead>
+			<tbody>
+				<%= render :partial => 'majority', :collection => @elections, cached: true %>
+			</tbody>
+		</table>
+	</div>
+<% end -%>

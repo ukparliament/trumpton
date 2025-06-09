@@ -1,0 +1,21 @@
+<%= render :partial => 'legislation_item/nav' %>
+
+<div class="table-wrapper">
+	<table>
+		<thead>
+			<tr>
+				<%= content_tag( 'th', 'Title' ) %>
+				<%= content_tag( 'th', 'Date of Royal Assent' ) %>
+			</tr>
+		</thead>
+		<tbody>
+			<%= render :partial => 'act_of_parliament', :collection => @acts_of_parliament %>
+		</tbody>
+	</table>
+</div>
+
+<div id="downloads">
+	<p>
+		<%= csv_icon_link(act_of_parliament_list_url( :format => 'csv' ), "Download Act of Parliament data as a CSV file") %>
+	</p>
+</div>

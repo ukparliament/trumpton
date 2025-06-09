@@ -1,0 +1,24 @@
+<%= render :partial => 'previous_next', :object => @boundary_set %>
+
+<%= render :partial => 'boundary_set/nav', :object => @boundary_set %>
+
+<% if @elections.empty? -%>
+	<%= content_tag( 'p', 'General election vote share information is not yet available.' ) %>
+<% else -%>
+	<div class="table-wrapper">
+		<table id ="vote-share" class="multibody">
+			<thead>
+				<tr>
+					<%= content_tag( 'th', 'Constituency area' ) %>
+					<%= content_tag( 'th', 'Election type' ) %>
+					<%= content_tag( 'th', 'Polling date' ) %>
+					<%= content_tag( 'th', 'Winning party' ) %>
+					<%= content_tag( 'th', 'Vote share', :class => 'number' ) %>
+				</tr>
+			</thead>
+			<tbody>
+				<%= render :partial => 'vote_share', :collection => @elections, cached: true %>
+			</tbody>
+		</table>
+	</div>
+<% end -%>
