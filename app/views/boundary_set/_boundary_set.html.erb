@@ -1,15 +1,3 @@
 <li>
-	<%= content_tag( 'p', link_to( boundary_set.display_title, boundary_set_show_url( :boundary_set => boundary_set ) ) ) %>
-	
-	<%# Render the boundary set description if there is one. -%>
-	<%= content_tag( 'p', "#{boundary_set.description}." ) if boundary_set.description %>
-	
-	<%# If the boundary set has a non-empty array of child boundary sets ... %> 
-	<% if boundary_set.child_boundary_sets && !boundary_set.child_boundary_sets.empty? -%>
-		<ol>
-			
-			<%# We render this partial for all the child boundary sets. %>
-			<%= render :partial => 'boundary_set', :collection => boundary_set.child_boundary_sets %>
-		</ol>
-	<% end -%>
+	<%= content_tag( 'p', link_to( boundary_set.display_title_with_description, boundary_set_show_url( :boundary_set => boundary_set ) ) ) %>
 </li>
