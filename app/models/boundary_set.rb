@@ -257,6 +257,8 @@ class BoundarySet < ApplicationRecord
           electorate.population_count AS electorate_population_count,
           boundary_set.constituency_area_name AS constituency_area_name,
           boundary_set.constituency_area_id AS constituency_area_id,
+          boundary_set.boundary_set_start_on AS boundary_set_start_on,
+          boundary_set.boundary_set_end_on AS boundary_set_end_on,
           general_election.polling_on AS general_election_polling_on,
           winning_candidacy.is_standing_as_commons_speaker AS winning_candidacy_standing_as_commons_speaker,
           winning_candidacy.is_standing_as_independent AS  winning_candidacy_standing_as_independent,
@@ -276,10 +278,27 @@ class BoundarySet < ApplicationRecord
         ON electorate.id = e.electorate_id
       
         INNER JOIN (
-          SELECT cg.id AS constituency_group_id, ca.id AS constituency_area_id, ca.name AS constituency_area_name
-          FROM constituency_groups cg, constituency_areas ca
+          SELECT
+            cg.id AS constituency_group_id,
+            ca.id AS constituency_area_id,
+            ca.name AS constituency_area_name,
+            bs.start_on AS boundary_set_start_on,
+            bs.end_on AS boundary_set_end_on
+          FROM constituency_groups cg, constituency_areas ca, boundary_sets bs
           WHERE cg.constituency_area_id = ca.id
-          AND ca.boundary_set_id = ?
+          AND ca.boundary_set_id = bs.id
+          AND 
+            (
+              (
+                bs.id = ?
+                AND
+                bs.parent_boundary_set_id IS NULL
+              )
+              OR
+              (
+                bs.parent_boundary_set_id = ?
+              )
+            )
         ) AS boundary_set
         ON boundary_set.constituency_group_id = e.constituency_group_id
       
@@ -320,7 +339,7 @@ class BoundarySet < ApplicationRecord
         WHERE e.is_notional IS FALSE
       
         ORDER BY constituency_area_name, e.polling_on
-      ", id
+      ", id, id
     ])
   end
   
