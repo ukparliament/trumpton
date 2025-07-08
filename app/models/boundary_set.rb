@@ -108,13 +108,31 @@ class BoundarySet < ApplicationRecord
   def constituency_areas
     ConstituencyArea.find_by_sql([
       "
-        SELECT *
-        FROM constituency_areas
-        WHERE boundary_set_id = ?
-        ORDER BY name
-      ", id
+        SELECT ca.*,
+          bs.start_on AS boundary_set_start_on,
+          bs.end_on AS boundary_set_end_on
+        FROM constituency_areas ca, boundary_sets bs
+        WHERE boundary_set_id = bs.id
+        AND 
+          (
+            (
+              bs.id = ?
+              AND
+              bs.parent_boundary_set_id IS NULL
+            )
+            OR
+            (
+              bs.parent_boundary_set_id = ?
+            )
+          )
+          ORDER BY name
+      ", id, id
     ])
   end
+  
+  
+  
+  
   
   def elections
     Election.find_by_sql([

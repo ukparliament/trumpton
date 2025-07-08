@@ -9,7 +9,7 @@
 <% else -%>
 	<div id="constituencies">
 		<ol>
-			<%= render :partial => 'constituency_area/constituency_area', :collection => @constituency_areas %>
+			<%= render :partial => 'boundary_set_constituency_area/constituency_area', :collection => @constituency_areas, :locals => {:boundary_set => @boundary_set} %>
 		</ol>
 	</div>
 <% end -%>
