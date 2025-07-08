@@ -117,8 +117,6 @@ class BoundarySet < ApplicationRecord
           (
             (
               bs.id = ?
-              AND
-              bs.parent_boundary_set_id IS NULL
             )
             OR
             (
@@ -129,10 +127,6 @@ class BoundarySet < ApplicationRecord
       ", id, id
     ])
   end
-  
-  
-  
-  
   
   def elections
     Election.find_by_sql([
