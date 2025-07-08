@@ -19,7 +19,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<%= render :partial => 'majority', :collection => @elections, cached: true %>
+				<%= render :partial => 'majority', :collection => @elections, cached: true, :locals => {:boundary_set => @boundary_set} %>
 			</tbody>
 		</table>
 	</div>
