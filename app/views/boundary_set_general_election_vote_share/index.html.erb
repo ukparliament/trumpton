@@ -17,7 +17,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<%= render :partial => 'vote_share', :collection => @elections, cached: true %>
+				<%= render :partial => 'vote_share', :collection => @elections, cached: true, :locals => {:boundary_set => @boundary_set} %>
 			</tbody>
 		</table>
 	</div>
